@@ -1,11 +1,5 @@
 <template>
   <div :class="aprilFools">
-    <img
-      class="rocky"
-      src="../assets/img/rockyCool.png"
-      alt="rockyCool twitch emote"
-      width="200"
-    >
     <ShowCommands />
   </div>
 </template>
@@ -33,18 +27,15 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
 html,
 body {
-  font-family: 'Roboto', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: rgb(245, 236, 213);
+  font-family: Rajdhani, Tahoma, sans-serif;
+  background-color: #202123;
+  color:rgb(228, 228, 228);
   margin: 0;
   padding: 0;
-}
-
-.rocky {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .april-fools {
