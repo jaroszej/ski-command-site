@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="command in commands" :key="command.key">
+          <tr v-for="command in getCleanCommands" :key="command.key">
             <td class="cmd">
               !{{ command.key }}
             </td>
@@ -39,40 +39,31 @@
 </template>
 
 <script>
-import * as Realm from 'realm-web'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'SkiestiCommands',
   data () {
     return {
-      commands: {},
       mongoErr: false
     }
   },
-  async mounted () {
-    const app = new Realm.App({ id: 'data-npueo' })
-    const credentials = Realm.Credentials.anonymous()
-    try {
-      const user = await app.logIn(credentials)
-      const comms = await user.functions.getCommands()
-
-      if (comms.result.code === '0') {
-        const dbData = comms.result.data
-        this.cleanData(dbData)
-      }
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('Failed to log in', err)
-      this.mongoErr = true
+  computed: {
+    ...mapGetters(['getCommands']),
+    ...mapState(['checkMongoErr']),
+    getCleanCommands () {
+      return this.getCommands
     }
   },
-  methods: {
-    cleanData (dbData) {
-      this.commands = dbData.map((item) => {
-        const { key, value } = item
-        return { key, value }
-      })
+  watch: {
+    checkMongoErr () {
+      this.mongoErr = this.$store.dispatch('getMongoErr')
     }
+  },
+  async mounted () {
+    // call data from stored value
+    this.commands = await this.$store.dispatch('mongoGetCommands')
+    // then update values every 15 minutes
   }
 }
 </script>
