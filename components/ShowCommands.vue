@@ -26,7 +26,7 @@
         <tbody>
           <tr v-for="command in commands" :key="command.key">
             <td class="cmd">
-              {{ command.key }}
+              !{{ command.key }}
             </td>
             <td class="val">
               {{ command.value }}
@@ -110,11 +110,13 @@ th {
 
 .cmd {
     width: 30%;
+    font-size: 16pt;
 }
 
 .val {
     width: 70%;
     border-left: 2px solid rgb(121, 121, 121);
+    font-size: 16pt;
 }
 
 td {
