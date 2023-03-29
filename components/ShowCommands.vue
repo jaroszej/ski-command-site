@@ -28,7 +28,6 @@
 
 <script>
 import axios from 'axios'
-import { configGetAll } from '../database/db'
 
 export default {
   name: 'SkiestiCommands',
@@ -38,51 +37,55 @@ export default {
     }
   },
   async mounted () {
-    await axios(configGetAll)
-      .then(function (response) {
-      // eslint-disable-next-line no-console
-        console.log('mongo res:', JSON.stringify(response))
-        this.commands = response.data
-      })
-      .catch(function (error) {
-      // eslint-disable-next-line no-console
-        console.log('mongo err:', error)
-        return error
-      })
+    const data = JSON.stringify({
+      collection: 'commands',
+      database: 'skimmands',
+      dataSource: 'skimmands',
+      projection: {
+        _id: 0,
+        key: 1,
+        value: 1
+      }
+    })
+    const head = {
+      'Content-Type': 'application/json',
+      'api-key': 'TJyJRZitkR8jukch2mn1JFO8A9LVdBsVMsbkq1KRqMAx22wd528ibJPiC4Kmx8Sz'
+    }
+    await axios.post('https://us-east-1.aws.data.mongodb-api.com/app/data-npueo/endpoint/data/v1/action/find', data, head)
   }
 }
 </script>
 
 <style scoped>
-    .content {
-        text-align: center;
-    }
+.content {
+    text-align: center;
+}
 
-    table {
-        border: 2px solid rgb(0, 0, 0);
-        border-radius: 8px;
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
+table {
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 8px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    th {
-        font-weight: bold;
-    }
+th {
+    font-weight: bold;
+}
 
-    .cmd {
-        width: 30%;
-    }
+.cmd {
+    width: 30%;
+}
 
-    .val {
-        width: 70%;
-        border-left: 2px solid rgb(0,0,0);
-    }
+.val {
+    width: 70%;
+    border-left: 2px solid rgb(0, 0, 0);
+}
 
-    td {
-        padding: 10px;
-        text-align: center;
-        vertical-align: middle;
-        border-top: 2px solid rgb;
-    }
+td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    border-top: 2px solid rgb;
+}
 </style>

@@ -50,5 +50,19 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  privateRuntimeConfig: {
+    username: process.env.UNAME,
+    password: process.env.PWORD,
+    cluster: process.env.CLUSTER,
+    key: process.env.MONGO_API_KEY,
+    collection: process.env.COLLECTION,
+    db: process.env.DB,
+    ds: process.env.DS,
+    baseURL: process.env.BASE_URL
+  },
+
+  publicRuntimeConfig: {
   }
 }

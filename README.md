@@ -1,6 +1,6 @@
 # ski-command-site
 
-Update this status badge after deployment [![Netlify Status](https://api.netlify.com/api/v1/badges/e84fb302-0c76-405e-b21f-aa9636e291cd/deploy-status)](https://app.netlify.com/sites/rosze-software/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2f317f52-736d-4c8d-9d86-22d611c187f0/deploy-status)](https://app.netlify.com/sites/skimmands/deploys)
 
 ## Build Setup
 
