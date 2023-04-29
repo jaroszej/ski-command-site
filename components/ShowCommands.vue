@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="command in commands" :variable="command.variable">
+          <tr v-for="command in commands" :key="command.variable">
             <td class="cmd">
               {{ command.variable }}
             </td>
