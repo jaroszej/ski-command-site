@@ -24,9 +24,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="command in commands" :key="command.key">
+          <tr v-for="command in commands" :variable="command.variable">
             <td class="cmd">
-              {{ command.key }}
+              {{ command.variable }}
             </td>
             <td class="val">
               {{ command.value }}
@@ -69,8 +69,8 @@ export default {
   methods: {
     cleanData (dbData) {
       this.commands = dbData.map((item) => {
-        const { key, value } = item
-        return { key, value }
+        const { variable, value } = item
+        return { variable, value }
       })
     }
   }
