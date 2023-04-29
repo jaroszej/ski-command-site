@@ -55,6 +55,7 @@ export default {
     try {
       const user = await app.logIn(credentials)
       const comms = await user.functions.getCommands()
+      console.log('before success check: ', comms)
 
       if (comms.result.code === '0') {
         const dbData = comms.result.data
