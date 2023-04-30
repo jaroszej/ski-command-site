@@ -1,5 +1,5 @@
 <template>
-  <div :class="aprilFools">
+  <div class="commands-list" :class="aprilFools">
     <ShowCommands />
   </div>
 </template>
@@ -27,19 +27,19 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Rajdhani:wght@300;400;500;600;700&display=swap');
-
 html,
 body {
-  font-family: Rajdhani, Tahoma, sans-serif;
+  font-family: "Helvetica Neue", Tahoma, sans-serif;
   background-color: #202123;
   color:rgb(228, 228, 228);
   margin: 0;
   padding: 0;
+  font-size: 9.5px;
 }
 
 .april-fools {
   font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 12px;
   color: rgb(0, 255, 221);
   background-color: brown;
   height: 100vh;

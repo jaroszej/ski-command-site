@@ -7,33 +7,64 @@
         <img src="../assets/img/skiestWiggle.gif" alt="skiestWiggle gif">
       </div>
     </div>
+    <!-- grid-container -->
     <div v-else class="ok">
-      <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool twitch emote" width="150">
-      <h1 class="title">
-        Skimmands
-      </h1>
-      <table>
-        <thead>
-          <tr>
-            <th class="cmd">
-              Command
-            </th>
-            <th class="val">
-              Value
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="command in getCleanCommands" :key="command.key">
-            <td class="cmd">
-              !{{ command.key }}
-            </td>
-            <td class="val">
-              {{ command.value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- header -->
+      <div class="header">
+        <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool emote">
+        <h1 class="title">
+          Skimmands
+        </h1>
+      </div>
+
+      <!-- nav-bar (left) -->
+      <div class="sidebar site-nav">
+        <span />
+      </div>
+      <!-- table -->
+      <div class="cmd-table">
+        <div class="search-info">
+          {{ filterStatus }}
+          <div class="searchbar">
+            <input
+              v-model="filterQuery"
+              class="searchbar-input"
+              type="text"
+              placeholder="Type here"
+            >
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th class="cmd">
+                <span>Command</span>
+              </th>
+              <th class="val">
+                <span>Value</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="command in filterTable" :key="command.variable">
+              <td class="cmd">
+                {{ command.variable }}
+              </td>
+              <td class="val">
+                {{ command.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- links (right) -->
+      <div class="sidebar external-links">
+        <span />
+      </div>
+      <!-- footer -->
+      <div class="footer">
+        <span>🌻</span>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +76,8 @@ export default {
   name: 'SkiestiCommands',
   data () {
     return {
+      commands: [],
+      filterQuery: '',
       mongoErr: false
     }
   },
@@ -53,17 +86,38 @@ export default {
     ...mapState(['checkMongoErr']),
     getCleanCommands () {
       return this.getCommands
-    }
-  },
-  watch: {
-    checkMongoErr () {
-      this.mongoErr = this.$store.dispatch('getMongoErr')
+    },
+    filterTable () {
+      return this.commands.filter((pair) => {
+        for (const key in pair) {
+          const value = pair[key].toString()
+          if ((key.includes(this.filterQuery) || value.includes(this.filterQuery))) {
+            return true
+          }
+        }
+        return false
+      })
+    },
+    filterStatus () {
+      if (this.filterTable.length > 0) {
+        return 'Filter for commands or values'
+      } else {
+        return '💔 No Match Found'
+      }
     }
   },
   async mounted () {
     // call data from stored value
     this.commands = await this.$store.dispatch('mongoGetCommands')
     // then update values every 15 minutes
+  },
+  methods: {
+    cleanData (dbData) {
+      this.commands = dbData.map((item) => {
+        const { variable, value } = item
+        return { variable, value }
+      })
+    }
   }
 }
 </script>
@@ -74,6 +128,20 @@ export default {
 
 .content {
     text-align: center;
+    font-size: 1.8rem;
+    letter-spacing: 0.05rem;
+}
+
+.ok {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+.header {
+  grid-area: 1 / 2 / 2 / 3;
 }
 
 .rocky {
@@ -81,18 +149,54 @@ export default {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
+    width:150px;
+}
+
+.search-info {
+  margin: 12px;
+}
+
+.searchbar {
+  margin: 8px;
+}
+
+.sidebar {
+  min-height: 1000px;
+  padding: 0 10px 0;
+}
+
+.site-nav {
+  grid-area: 2 / 1 / 3 / 2;
+}
+
+.external-links {
+  grid-area: 2 / 3 / 3 / 4;
+}
+
+.cmd-table {
+  grid-area: 2 / 2 / 3 / 3;
+}
+
+.footer {
+  grid-area: 3 / 2 / 4 / 3;
 }
 
 table {
+    table-layout: fixed;
+    box-sizing: border-box;
     border: 2px solid rgb(121, 121, 121);
     border-radius: 8px;
-    width: 80%;
     margin-left: auto;
     margin-right: auto;
+    width: 80%;
 }
 
 th {
     font-weight: bold;
+}
+
+th, td {
+    padding: 0.5rem;
 }
 
 .title {
@@ -100,18 +204,20 @@ th {
 }
 
 .cmd {
-    width: 30%;
-    font-size: 16pt;
+    width: 240px;
+    overflow: auto;
 }
 
 .val {
-    width: 70%;
+    width: 320px;
+    overflow: auto;
+    padding-right: 40px;
+    padding-left: 40px;
     border-left: 2px solid rgb(121, 121, 121);
-    font-size: 16pt;
 }
 
 td {
-    padding: 10px;
+    padding: 12px 0;
     text-align: center;
     vertical-align: middle;
     border-top: 2px solid rgb(121, 121, 121);
@@ -143,4 +249,5 @@ td {
 .err h2 {
     text-transform: uppercase;
 }
+
 </style>

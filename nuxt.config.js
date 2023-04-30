@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'ski-command-site',
+    title: 'Skiesti Twitch Commands',
     htmlAttrs: {
       lang: 'en'
     },
@@ -50,6 +50,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    extend (config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.devtool = 'source-map'
+      }
+    }
   },
 
   privateRuntimeConfig: {
