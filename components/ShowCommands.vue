@@ -24,8 +24,7 @@
       <!-- table -->
       <div class="cmd-table">
         <div class="search-info">
-          <span v-if="!noMatch" class="instructions">Filter for commands or values</span>
-          <span v-else class="no-match">💔 No Match Found</span>
+          {{ filterStatus }}
           <div class="searchbar">
             <input
               v-model="filterQuery"
@@ -79,7 +78,6 @@ export default {
     return {
       commands: [],
       filterQuery: '',
-      noMatch: false,
       mongoErr: false
     }
   },
@@ -89,14 +87,18 @@ export default {
         for (const key in pair) {
           const value = pair[key].toString()
           if ((key.includes(this.filterQuery) || value.includes(this.filterQuery))) {
-            this.noMatch = false
             return true
-          } else {
-            this.noMatch = true
           }
         }
         return false
       })
+    },
+    filterStatus () {
+      if (this.filterTable.length > 0) {
+        return 'Filter for commands or values'
+      } else {
+        return '💔 No Match Found'
+      }
     }
   },
   async mounted () {
@@ -158,7 +160,11 @@ export default {
 }
 
 .search-info {
-  margin: 20px;
+  margin: 12px;
+}
+
+.searchbar {
+  margin: 8px;
 }
 
 .sidebar {
@@ -252,4 +258,3 @@ td {
 }
 
 </style>
-
