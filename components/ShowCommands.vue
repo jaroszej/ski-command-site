@@ -24,7 +24,7 @@
       <!-- table -->
       <div class="cmd-table">
         <div class="search-info">
-          <span v-if="noMatch" class="no-match">💔 No Match Found</span>
+          <span v-if="!noMatch" class="no-match">💔 No Match Found</span>
           <span v-else class="instructions">Filter for commands or values</span>
           <div class="searchbar">
             <input
