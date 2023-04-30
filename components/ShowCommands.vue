@@ -159,7 +159,6 @@ table {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    border-collapse: collapse;
 }
 
 th {
@@ -168,7 +167,6 @@ th {
 
 th, td {
     padding: 0.5rem;
-    border: 1px solid #e44d4d;
 }
 
 .title {
