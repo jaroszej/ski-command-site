@@ -19,12 +19,21 @@
 
       <!-- nav-bar (left) -->
       <div class="sidebar site-nav">
-        <span></span>
+        <span />
       </div>
       <!-- table -->
       <div class="cmd-table">
-        <div class="searchbar">
-          <span></span>
+        <div class="search-info">
+          <span v-if="noMatch" class="no-match">💔 No Match Found</span>
+          <span v-else class="instructions">Filter for commands or values</span>
+          <div class="searchbar">
+            <input
+              v-model="filterQuery"
+              class="searchbar-input"
+              type="text"
+              placeholder="Type here"
+            >
+          </div>
         </div>
         <table>
           <thead>
@@ -38,7 +47,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="command in commands" :key="command.variable">
+            <tr v-for="command in filterTable" :key="command.variable">
               <td class="cmd">
                 {{ command.variable }}
               </td>
@@ -51,7 +60,7 @@
       </div>
       <!-- links (right) -->
       <div class="sidebar external-links">
-        <span></span>
+        <span />
       </div>
       <!-- footer -->
       <div class="footer">
@@ -68,8 +77,26 @@ export default {
   name: 'SkiestiCommands',
   data () {
     return {
-      commands: {},
+      commands: [],
+      filterQuery: '',
+      noMatch: false,
       mongoErr: false
+    }
+  },
+  computed: {
+    filterTable () {
+      return this.commands.filter((pair) => {
+        for (const key in pair) {
+          const value = pair[key].toString()
+          if ((key.includes(this.filterQuery) || value.includes(this.filterQuery))) {
+            this.noMatch = false
+            return true
+          } else {
+            this.noMatch = true
+          }
+        }
+        return false
+      })
     }
   },
   async mounted () {
@@ -128,6 +155,10 @@ export default {
     margin-right: auto;
     margin-top: 20px;
     width:150px;
+}
+
+.search-info {
+  margin: 20px;
 }
 
 .sidebar {
