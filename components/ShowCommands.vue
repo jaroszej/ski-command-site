@@ -55,11 +55,9 @@ export default {
     try {
       const user = await app.logIn(credentials)
       const comms = await user.functions.getCommands()
-      console.log('before success check: ', comms)
 
       if (comms.result.code === '0') {
         const dbData = comms.result.data
-        console.log('before clean: ', dbData)
         this.cleanData(dbData)
       }
     } catch (err) {
@@ -70,7 +68,6 @@ export default {
   },
   methods: {
     cleanData (dbData) {
-      console.log('commands: ', dbData)
       this.commands = dbData.map((item) => {
         const { variable, value } = item
         return { variable, value }
