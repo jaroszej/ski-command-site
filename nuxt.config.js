@@ -54,8 +54,6 @@ export default {
     realmKey: process.env.REALM_KEY
   },
 
-  publicRuntimeConfig: {},
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend (config, ctx) {
