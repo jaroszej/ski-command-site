@@ -59,11 +59,19 @@
       </div>
       <!-- links (right) -->
       <div class="sidebar external-links">
-        <span />
+        <SocialBar class="fixed" :style="{ sticky: fixedRight }" />
       </div>
       <!-- footer -->
       <div class="footer">
         <span>🌻</span>
+        <div class="attributions">
+          <a href="https://www.flaticon.com/free-icons/twitch" title="twitch icons">Twitch icons created by Enamo Studios - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icons created by Freepik - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/tiktok" title="tiktok icons">Tiktok icons created by Freepik - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/twitter" title="twitter icons">Twitter icons created by Bogdan Rosu - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/social-network" title="social network icons">Social network icons created by riajulislam - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/discord" title="discord icons">Discord icons created by Hight Quality Icons - Flaticon</a>
+        </div>
       </div>
     </div>
   </div>
@@ -71,9 +79,13 @@
 
 <script>
 import * as Realm from 'realm-web'
+import SocialBar from '../components/SocialBar.vue'
 
 export default {
   name: 'SkiestiCommands',
+  components: {
+    SocialBar
+  },
   data () {
     return {
       commands: [],
@@ -99,11 +111,14 @@ export default {
       } else {
         return '💔 No Match Found'
       }
+    },
+    fixedRight () {
+      return `${window.scrollY}px`
     }
   },
   async mounted () {
     const app = new Realm.App({ id: 'data-npueo' })
-    const credentials = Realm.Credentials.anonymous()
+    const credentials = Realm.Credentials.apiKey(process.env.realmKey)
     try {
       const user = await app.logIn(credentials)
       const comms = await user.functions.getCommands()
@@ -168,8 +183,15 @@ export default {
 }
 
 .sidebar {
-  min-height: 1000px;
+  /* currently sets the footer down when no data present TODO: handle this through footer */
+  min-height: 800px;
   padding: 0 10px 0;
+}
+
+.fixed {
+  position: fixed;
+  top: 33%;
+  right: 0;
 }
 
 .site-nav {
@@ -185,7 +207,9 @@ export default {
 }
 
 .footer {
+  /* TODO: set at bottom of page */
   grid-area: 3 / 2 / 4 / 3;
+  margin-bottom: 20px;
 }
 
 table {
@@ -211,16 +235,17 @@ th, td {
 }
 
 .cmd {
-    width: 240px;
+    width: 200px;
     overflow: auto;
 }
 
 .val {
-    width: 320px;
-    overflow: auto;
+    width: 400px;
+    overflow-wrap: break-word;
     padding-right: 40px;
     padding-left: 40px;
     border-left: 2px solid rgb(121, 121, 121);
+    text-align: left;
 }
 
 td {

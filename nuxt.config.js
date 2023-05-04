@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -48,6 +50,10 @@ export default {
     baseURL: '/'
   },
 
+  env: {
+    realmKey: process.env.REALM_KEY
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     extend (config, ctx) {
@@ -55,19 +61,5 @@ export default {
         config.devtool = 'source-map'
       }
     }
-  },
-
-  privateRuntimeConfig: {
-    username: process.env.UNAME,
-    password: process.env.PWORD,
-    cluster: process.env.CLUSTER,
-    key: process.env.MONGO_API_KEY,
-    collection: process.env.COLLECTION,
-    db: process.env.DB,
-    ds: process.env.DS,
-    baseURL: process.env.BASE_URL
-  },
-
-  publicRuntimeConfig: {
   }
 }
