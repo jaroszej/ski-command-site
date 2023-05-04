@@ -103,7 +103,7 @@ export default {
   },
   async mounted () {
     const app = new Realm.App({ id: 'data-npueo' })
-    const credentials = Realm.Credentials.anonymous()
+    const credentials = Realm.Credentials.apiKey(process.env.realmKey)
     try {
       const user = await app.logIn(credentials)
       const comms = await user.functions.getCommands()
