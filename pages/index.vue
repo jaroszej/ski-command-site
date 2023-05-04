@@ -9,7 +9,9 @@ import ShowCommands from '../components/ShowCommands.vue'
 
 export default {
   name: 'IndexPage',
-  components: { ShowCommands },
+  components: {
+    ShowCommands
+  },
   data () {
     return {
     }
