@@ -33,7 +33,7 @@
                 placeholder="Type here..."
               >
             </div>
-            <div v-if="filterQuery" class="result">
+            <div v-if="fool && filterQuery" class="result">
               <table>
                 <tbody>
                   <tr v-for="(command, index) in filterTable" :key="index">
