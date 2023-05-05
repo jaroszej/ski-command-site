@@ -8,37 +8,64 @@
       </div>
     </div>
     <div v-else class="cmd-table">
-      <table>
-        <thead>
-          <tr>
-            <th class="cmd">
-              <span>Command</span>
-            </th>
-            <th class="val">
-              <span>Value</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(command, index) in commands" :key="index">
-            <td class="cmd">
-              <div
-                v-show="cmdClicked === index"
-                class="copied-msg"
-                :class="aprilFools"
-              >
-                Copied !{{ command.variable }} to clipboard
-              </div>
+      <div v-if="!fool" class="table">
+        <table>
+          <thead>
+            <tr>
+              <th class="cmd">
+                <span>Command</span>
+              </th>
+              <th class="val">
+                <span>Value</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(command, index) in commands" :key="index">
+              <td class="cmd">
+                <div
+                  v-show="cmdClicked === index"
+                  class="copied-msg"
+                  :class="aprilFools"
+                >
+                  Copied !{{ command.variable }} to clipboard
+                </div>
+                <button @click="copyToClipboard(index)">
+                  {{ command.variable }}
+                </button>
+              </td>
+              <td class="val">
+                {{ command.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-else class="marquee">
+        <Marquee
+          id="marquee-slider-loop"
+          :auto-width="false"
+          :speed="15000"
+          :repeat="20"
+          :space="20"
+          :width="50"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. At labore commodi, quibusdam tenetur ipsum maxime cupiditate atque suscipit eius voluptatum maiores doloremque amet neque porro enim ipsam magni veniam consequuntur.
+          <!-- <div v-for="(command, index) in commands" :key="index" class="command">
+            <div
+              v-show="cmdClicked === index"
+              class="copied-msg"
+              :class="aprilFools"
+            >
+              Copied !{{ command.variable }} to clipboard
+            </div>
+            <span>|||
               <button @click="copyToClipboard(index)">
                 {{ command.variable }}
-              </button>
-            </td>
-            <td class="val">
-              {{ command.value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </button> -> {{ command.value }}</span>
+          </div> -->
+        </Marquee>
+      </div>
     </div>
   </div>
 </template>
@@ -186,6 +213,10 @@ td {
   font-weight: 800;
   font-style: italic;
   text-decoration: double;
+}
+
+.marquee {
+  margin-top: 80px;
 }
 
 </style>

@@ -19,7 +19,8 @@ export default {
   computed: {
     aprilFools () {
       const today = new Date()
-      const isAprilFools = today.getMonth() === 3 && today.getDate() === 1
+      // const isAprilFools = today.getMonth() === 3 && today.getDate() === 1
+      const isAprilFools = today
       return isAprilFools ? 'april-fools' : ''
     }
   }
@@ -42,7 +43,7 @@ body {
   font-size: 12px;
   color: rgb(0, 255, 221);
   background-color: brown;
-  height: 6000vh;
+  height: 3000vh;
   width: 100%;
 }
 </style>
