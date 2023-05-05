@@ -42,16 +42,15 @@
         </table>
       </div>
       <div v-else class="marquee">
-        <Marquee
+        <vue-marquee-slider
           id="marquee-slider-loop"
           :auto-width="false"
-          :speed="15000"
-          :repeat="20"
-          :space="20"
-          :width="50"
+          :speed="1000000"
+          :repeat="40"
+          :space="32"
+          :width="380"
         >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. At labore commodi, quibusdam tenetur ipsum maxime cupiditate atque suscipit eius voluptatum maiores doloremque amet neque porro enim ipsam magni veniam consequuntur.
-          <!-- <div v-for="(command, index) in commands" :key="index" class="command">
+          <div v-for="(command, index) in commands" :key="index" class="command">
             <div
               v-show="cmdClicked === index"
               class="copied-msg"
@@ -59,12 +58,12 @@
             >
               Copied !{{ command.variable }} to clipboard
             </div>
-            <span>|||
-              <button @click="copyToClipboard(index)">
-                {{ command.variable }}
-              </button> -> {{ command.value }}</span>
-          </div> -->
-        </Marquee>
+            <button class="marquee-btn" @click="copyToClipboard(index)">
+              {{ command.variable }}
+            </button>
+            <div>{{ command.value }}</div>
+          </div>
+        </vue-marquee-slider>
       </div>
     </div>
   </div>
@@ -209,14 +208,26 @@ td {
 }
 
 .april-fools {
-  background-color: chartreuse;
+  background-color: rgba(129, 255, 57, 0.5);
   font-weight: 800;
   font-style: italic;
   text-decoration: double;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#marquee-slider-loop {
+  margin-top: 80px;
+  width: 800px;
+  height: auto;
 }
 
 .marquee {
-  margin-top: 80px;
+  width: 100%;
+}
+
+.marquee-btn {
+  background: yellow;
 }
 
 </style>

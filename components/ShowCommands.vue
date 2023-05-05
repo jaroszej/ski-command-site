@@ -33,6 +33,29 @@
                 placeholder="Type here..."
               >
             </div>
+            <div v-if="filterQuery" class="result">
+              <table>
+                <tbody>
+                  <tr v-for="(command, index) in filterTable" :key="index">
+                    <td class="cmd">
+                      <div
+                        v-show="cmdClicked === index"
+                        class="copied-msg"
+                        :class="aprilFools"
+                      >
+                        Copied !{{ command.variable }} to clipboard
+                      </div>
+                      <button @click="copyToClipboard(index)">
+                        {{ command.variable }}
+                      </button>
+                    </td>
+                    <td class="val">
+                      {{ command.value }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -94,7 +117,8 @@ export default {
       mongoErr: false,
       loading: true,
       commands: [],
-      filterQuery: ''
+      filterQuery: '',
+      cmdClicked: false
     }
   },
   computed: {
@@ -150,6 +174,13 @@ export default {
         return { variable, value, index }
       })
       this.loading = false
+    },
+    copyToClipboard (index) {
+      this.cmdClicked = index
+      navigator.clipboard.writeText(`!${this.filterTable[index].variable}`)
+      setTimeout(() => {
+        this.cmdClicked = null
+      }, 2000)
     }
   }
 }
@@ -299,6 +330,16 @@ export default {
 .april-fools {
   border: 15px dashed gold;
   border-top-right-radius: 40px;
+}
+
+.result {
+  margin-top: 260px;
+}
+
+.cmd button {
+  font: inherit;
+  display: inline;
+  background-color: greenyellow;
 }
 
 </style>

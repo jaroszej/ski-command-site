@@ -43,7 +43,7 @@ body {
   font-size: 12px;
   color: rgb(0, 255, 221);
   background-color: brown;
-  height: 3000vh;
+  height: 200vh;
   width: 100%;
 }
 </style>
