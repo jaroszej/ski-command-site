@@ -19,8 +19,7 @@ export default {
   computed: {
     aprilFools () {
       const today = new Date()
-      // const isAprilFools = today.getMonth() === 3 && today.getDate() === 1
-      const isAprilFools = today
+      const isAprilFools = today.getMonth() === 3 && today.getDate() === 1
       return isAprilFools ? 'april-fools' : ''
     }
   }
