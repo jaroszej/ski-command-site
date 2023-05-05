@@ -57,7 +57,7 @@ export default {
 
   .social-link a img:hover {
     border-radius: 27px;
-    box-shadow: 0 0 5px 3px rgba(255,200,61, 1.0);
+    box-shadow: 0 0 5px 3px rgb(255,200,61);
     background-color: rgb(255, 200, 61);
   }
 
