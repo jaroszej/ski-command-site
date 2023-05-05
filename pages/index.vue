@@ -1,6 +1,6 @@
 <template>
   <div class="commands-list" :class="aprilFools">
-    <ShowCommands />
+    <ShowCommands :fool="aprilFools" />
   </div>
 </template>
 
@@ -20,8 +20,6 @@ export default {
     aprilFools () {
       const today = new Date()
       const isAprilFools = today.getMonth() === 3 && today.getDate() === 1
-      // uncomment for testing vvv
-      // const isAprilFools = today
       return isAprilFools ? 'april-fools' : ''
     }
   }
@@ -44,7 +42,7 @@ body {
   font-size: 12px;
   color: rgb(0, 255, 221);
   background-color: brown;
-  height: 100vh;
+  height: 6000vh;
   width: 100%;
 }
 </style>
