@@ -1,7 +1,7 @@
 <template>
   <div class="social-bar">
     <div class="links">
-      <div class="social-link">
+      <div :id="aprilFools" class="social-link">
         <a href="https://www.twitch.tv/skiesti" target="_blank">
           <img src="../assets/img/twitch.png" alt="Twitch">
         </a>
@@ -27,7 +27,19 @@
 
 <script>
 export default {
-  name: 'SocialBar'
+  name: 'SocialBar',
+  props: {
+    fool: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  },
+  computed: {
+    aprilFools () {
+      return this.fool
+    }
+  }
 }
 </script>
 
@@ -67,4 +79,16 @@ export default {
     background-color: rgb(255, 164, 60);
   }
 
+  #april-fools {
+    position: relative;
+    right: 0;
+    transform: inherit;
+    padding: 20px 10px;
+    border-color: crimson;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: blueviolet;
+  }
 </style>

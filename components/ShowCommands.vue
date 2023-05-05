@@ -1,8 +1,9 @@
 <template>
-  <div class="content">
+  <div class="content" :class="aprilFools">
     <div v-if="mongoErr" class="err">
+      <h1>500</h1>
       <h2>Server Error</h2>
-      <h3>Try again later</h3>
+      <h3>Refresh or try again later</h3>
       <div class="wiggle">
         <img src="../assets/img/skiestWiggle.gif" alt="skiestWiggle gif">
       </div>
@@ -10,64 +11,49 @@
     <!-- grid-container -->
     <div v-else class="ok">
       <!-- header -->
-      <div class="header">
-        <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool emote">
-        <h1 class="title">
-          Skimmands
-        </h1>
+      <div class="header sticky">
+        <div v-if="!fool">
+          <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool emote">
+          <h1 class="title">
+            Skimmands
+          </h1>
+        </div>
+        <div v-else>
+          <img src="../assets/img/pickleMercy.png" alt="pickleMercy" width="210">
+          <h1>April Fools Skimmands!</h1>
+        </div>
+        <div class="search">
+          <div class="search-info">
+            {{ filterStatus }}
+            <div class="searchbar">
+              <input
+                v-model="filterQuery"
+                class="searchbar-input"
+                type="text"
+                placeholder="Type here..."
+              >
+            </div>
+          </div>
+        </div>
       </div>
-
       <!-- nav-bar (left) -->
       <div class="sidebar site-nav">
         <span />
       </div>
       <!-- table -->
       <div class="cmd-table">
-        <div class="search-info">
-          {{ filterStatus }}
-          <div class="searchbar">
-            <input
-              v-model="filterQuery"
-              class="searchbar-input"
-              type="text"
-              placeholder="Type here"
-            >
-          </div>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th class="cmd">
-                <span>Command</span>
-              </th>
-              <th class="val">
-                <span>Value</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(command, index) in filterTable" :key="index">
-              <td class="cmd">
-                <div
-                  v-show="cmdClicked === index"
-                  class="copied-msg"
-                >
-                  Copied !{{ command.variable }} to clipboard
-                </div>
-                <button @click="copyToClipboard(index)">
-                  {{ command.variable }}
-                </button>
-              </td>
-              <td class="val">
-                {{ command.value }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <CommandTable
+          :commands="filterTable"
+          :loading="loading"
+          :fool="fool"
+        />
       </div>
       <!-- links (right) -->
       <div class="sidebar external-links">
-        <SocialBar class="fixed" :style="{ sticky: fixedRight }" />
+        <SocialBar
+          class="fixed"
+          :fool="fool"
+        />
       </div>
       <!-- footer -->
       <div class="footer">
@@ -88,21 +74,33 @@
 <script>
 import * as Realm from 'realm-web'
 import SocialBar from '../components/SocialBar.vue'
+import CommandTable from '../components/CommandTable.vue'
 
 export default {
-  name: 'SkiestiCommands',
+  name: 'ShowCommands',
   components: {
+    CommandTable,
     SocialBar
+  },
+  props: {
+    fool: {
+      type: String,
+      required: false,
+      default: ''
+    }
   },
   data () {
     return {
-      commands: [],
-      filterQuery: '',
       mongoErr: false,
-      cmdClicked: false
+      loading: true,
+      commands: [],
+      filterQuery: ''
     }
   },
   computed: {
+    fixedRight () {
+      return `${window.scrollY}px`
+    },
     filterTable () {
       return this.commands.filter((pair) => {
         for (const key in pair) {
@@ -122,11 +120,12 @@ export default {
         return '💔 No Match Found'
       }
     },
-    fixedRight () {
-      return `${window.scrollY}px`
+    aprilFools () {
+      return this.fool
     }
   },
   async mounted () {
+    this.loading = true
     const app = new Realm.App({ id: 'data-npueo' })
     const credentials = Realm.Credentials.apiKey(process.env.realmKey)
     try {
@@ -141,6 +140,7 @@ export default {
       // eslint-disable-next-line no-console
       console.error('Failed to log in', err)
       this.mongoErr = true
+      this.loading = false
     }
   },
   methods: {
@@ -149,12 +149,7 @@ export default {
         const { variable, value } = item
         return { variable, value, index }
       })
-    },
-    copyToClipboard (index) {
-      this.cmdClicked = index
-      setTimeout(() => {
-        this.cmdClicked = null
-      }, 2000)
+      this.loading = false
     }
   }
 }
@@ -164,10 +159,16 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sofia+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titan+One&display=swap');
 
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
 .content {
-    text-align: center;
-    font-size: 1.8rem;
-    letter-spacing: 0.05rem;
+  text-align: center;
+  font-size: 1.8rem;
+  letter-spacing: 0.05rem;
 }
 
 .ok {
@@ -180,6 +181,10 @@ export default {
 
 .header {
   grid-area: 1 / 2 / 2 / 3;
+  height: 300px;
+  background-color: #202123;
+  border-radius: 12px;
+  border-bottom: 4px #777 solid;
 }
 
 .rocky {
@@ -187,31 +192,7 @@ export default {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    width:150px;
-}
-
-.search-info {
-  margin: 12px;
-}
-
-.searchbar {
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-}
-
-.searchbar-input {
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px;
-  border-bottom: 2px solid #555;
-  outline: none;
-  width: 200px;
-}
-
-.searchbar-input:focus {
-  border-bottom: 2px solid #666;
+    width:120px;
 }
 
 .sidebar {
@@ -258,84 +239,10 @@ export default {
   color: #777;
 }
 
-table {
-    table-layout: fixed;
-    box-sizing: border-box;
-    border: 2px solid rgb(121, 121, 121);
-    border-radius: 8px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-}
-
-th {
-    font-weight: bold;
-}
-
-th, td {
-    padding: 0.5rem;
-}
-
 .title {
     font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
-}
-
-.cmd {
-    width: 200px;
-    overflow: auto;
-}
-
-.cmd button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  outline: inherit;
-  display: inline;
-  padding: 0;
-  text-decoration: none;
-  border-bottom: dashed 1px rgb(228, 228, 228);
-}
-
-.cmd:hover {
-  text-decoration: underline;
-  text-decoration-color: rgb(255, 200, 61);
-}
-
-.cmd:active {
-  text-decoration: underline;
-  text-decoration-color: rgb(255, 164, 60);
-}
-
-.copied-msg {
-  position: fixed;
-  top: 30px;
-  left: auto;
-  right: auto;
-  z-index: 995;
-  transform: translateY(-50%);
-  background-color: rgb(255,200,61);
-  color: rgb(32,33,35);
-  padding: 10px;
-  margin-top: 20px;
-  border-radius: 5px;
-}
-
-.val {
-    width: 400px;
-    overflow-wrap: break-word;
-    padding-right: 40px;
-    padding-left: 40px;
-    border-left: 2px solid rgb(121, 121, 121);
-    text-align: left;
-}
-
-td {
-    padding: 12px 0;
-    text-align: center;
-    vertical-align: middle;
-    border-top: 2px solid rgb(121, 121, 121);
+    font-size: 48px;
+    margin: 0;
 }
 
 .wiggle {
@@ -363,6 +270,35 @@ td {
 
 .err h2 {
     text-transform: uppercase;
+}
+
+.search-info {
+  margin: 12px;
+}
+
+.searchbar {
+  display: flex;
+  justify-content: center;
+  margin: 12px;
+}
+
+.searchbar-input {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  border-bottom: 2px solid #555;
+  outline: none;
+  width: 200px;
+}
+
+.searchbar-input:focus {
+  border-bottom: 2px solid #666;
+}
+
+.april-fools {
+  border: 15px dashed gold;
+  border-top-right-radius: 40px;
 }
 
 </style>
