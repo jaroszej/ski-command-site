@@ -214,7 +214,6 @@ export default {
 }
 
 .sidebar {
-  /* currently sets the footer down when no data present TODO: handle this through footer */
   min-height: 800px;
   padding: 0 10px 0;
 }
@@ -238,7 +237,6 @@ export default {
 }
 
 .footer {
-  /* TODO: set at bottom of page */
   grid-area: 3 / 1 / 4 / 4;
   margin-bottom: 20px;
   color: #666;
