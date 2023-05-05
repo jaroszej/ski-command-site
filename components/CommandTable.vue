@@ -8,37 +8,63 @@
       </div>
     </div>
     <div v-else class="cmd-table">
-      <table>
-        <thead>
-          <tr>
-            <th class="cmd">
-              <span>Command</span>
-            </th>
-            <th class="val">
-              <span>Value</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(command, index) in commands" :key="index">
-            <td class="cmd">
-              <div
-                v-show="cmdClicked === index"
-                class="copied-msg"
-                :class="aprilFools"
-              >
-                Copied !{{ command.variable }} to clipboard
-              </div>
-              <button @click="copyToClipboard(index)">
-                {{ command.variable }}
-              </button>
-            </td>
-            <td class="val">
-              {{ command.value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div v-if="!fool" class="table">
+        <table>
+          <thead>
+            <tr>
+              <th class="cmd">
+                <span>Command</span>
+              </th>
+              <th class="val">
+                <span>Value</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(command, index) in commands" :key="index">
+              <td class="cmd">
+                <div
+                  v-show="cmdClicked === index"
+                  class="copied-msg"
+                  :class="aprilFools"
+                >
+                  Copied !{{ command.variable }} to clipboard
+                </div>
+                <button @click="copyToClipboard(index)">
+                  {{ command.variable }}
+                </button>
+              </td>
+              <td class="val">
+                {{ command.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-else class="marquee">
+        <vue-marquee-slider
+          id="marquee-slider-loop"
+          :auto-width="false"
+          :speed="1000000"
+          :repeat="40"
+          :space="32"
+          :width="380"
+        >
+          <div v-for="(command, index) in commands" :key="index" class="command">
+            <div
+              v-show="cmdClicked === index"
+              class="copied-msg"
+              :class="aprilFools"
+            >
+              Copied !{{ command.variable }} to clipboard
+            </div>
+            <button class="marquee-btn" @click="copyToClipboard(index)">
+              {{ command.variable }}
+            </button>
+            <div>{{ command.value }}</div>
+          </div>
+        </vue-marquee-slider>
+      </div>
     </div>
   </div>
 </template>
@@ -182,10 +208,26 @@ td {
 }
 
 .april-fools {
-  background-color: chartreuse;
+  background-color: rgba(129, 255, 57, 0.5);
   font-weight: 800;
   font-style: italic;
   text-decoration: double;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#marquee-slider-loop {
+  margin-top: 80px;
+  width: 800px;
+  height: auto;
+}
+
+.marquee {
+  width: 100%;
+}
+
+.marquee-btn {
+  background: yellow;
 }
 
 </style>

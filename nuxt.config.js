@@ -4,6 +4,10 @@ export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  loading: {
+    color: '#777'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Skiesti Twitch Commands',
@@ -26,8 +30,7 @@ export default {
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [
-  ],
+  plugins: ['~/plugins/marquee-slider.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
