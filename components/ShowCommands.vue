@@ -106,8 +106,9 @@ export default {
     filterTable () {
       return this.commands.filter((pair) => {
         for (const key in pair) {
-          const value = pair[key].toString()
-          if ((key.includes(this.filterQuery) || value.includes(this.filterQuery))) {
+          const value = pair[key].toString().toLowerCase()
+          const query = this.filterQuery.toLowerCase()
+          if ((key.includes(query) || value.includes(query))) {
             return true
           }
         }
