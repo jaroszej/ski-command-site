@@ -46,9 +46,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="command in filterTable" :key="command.variable">
+            <tr v-for="(command, index) in filterTable" :key="index">
               <td class="cmd">
-                {{ command.variable }}
+                <div
+                  v-show="cmdClicked === index"
+                  class="copied-msg"
+                >
+                  Copied !{{ command.variable }} to clipboard
+                </div>
+                <button @click="copyToClipboard(index)">
+                  {{ command.variable }}
+                </button>
               </td>
               <td class="val">
                 {{ command.value }}
@@ -63,7 +71,7 @@
       </div>
       <!-- footer -->
       <div class="footer">
-        <span>🌻</span>
+        <span class="flower">🌻</span>
         <div class="attributions">
           <a href="https://www.flaticon.com/free-icons/twitch" title="twitch icons">Twitch icons created by Enamo Studios - Flaticon</a>
           <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icons created by Freepik - Flaticon</a>
@@ -90,7 +98,8 @@ export default {
     return {
       commands: [],
       filterQuery: '',
-      mongoErr: false
+      mongoErr: false,
+      cmdClicked: false
     }
   },
   computed: {
@@ -135,10 +144,16 @@ export default {
   },
   methods: {
     cleanData (dbData) {
-      this.commands = dbData.map((item) => {
+      this.commands = dbData.map((item, index) => {
         const { variable, value } = item
-        return { variable, value }
+        return { variable, value, index }
       })
+    },
+    copyToClipboard (index) {
+      this.cmdClicked = index
+      setTimeout(() => {
+        this.cmdClicked = null
+      }, 2000)
     }
   }
 }
@@ -179,7 +194,23 @@ export default {
 }
 
 .searchbar {
-  margin: 8px;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.searchbar-input {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  border-bottom: 2px solid #555;
+  outline: none;
+  width: 200px;
+}
+
+.searchbar-input:focus {
+  border-bottom: 2px solid #666;
 }
 
 .sidebar {
@@ -208,8 +239,24 @@ export default {
 
 .footer {
   /* TODO: set at bottom of page */
-  grid-area: 3 / 2 / 4 / 3;
+  grid-area: 3 / 1 / 4 / 4;
   margin-bottom: 20px;
+  color: #666;
+  font-size: 10px;
+}
+
+.flower {
+  font-size: 32px;
+}
+
+.attributions {
+  border-top: 3px solid #777;
+  margin-top: 120px;
+  padding-top: 20px;
+}
+
+.attributions a {
+  color: #777;
 }
 
 table {
@@ -237,6 +284,43 @@ th, td {
 .cmd {
     width: 200px;
     overflow: auto;
+}
+
+.cmd button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  display: inline;
+  padding: 0;
+  text-decoration: none;
+  border-bottom: dashed 1px rgb(228, 228, 228);
+}
+
+.cmd:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(255, 200, 61);
+}
+
+.cmd:active {
+  text-decoration: underline;
+  text-decoration-color: rgb(255, 164, 60);
+}
+
+.copied-msg {
+  position: fixed;
+  top: 30px;
+  left: auto;
+  right: auto;
+  z-index: 995;
+  transform: translateY(-50%);
+  background-color: rgb(255,200,61);
+  color: rgb(32,33,35);
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
 }
 
 .val {
