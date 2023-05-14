@@ -26,11 +26,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '~assets/styles/variables.scss';
 html,
 body {
   font-family: "Helvetica Neue", Tahoma, sans-serif;
-  background-color: #202123;
+  background-color: $bg-gray;
   color:rgb(228, 228, 228);
   margin: 0;
   padding: 0;
