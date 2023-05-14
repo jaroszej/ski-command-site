@@ -1,12 +1,7 @@
 <template>
   <div class="content" :class="aprilFools">
-    <div v-if="mongoErr" class="err">
-      <h1>500</h1>
-      <h2>Server Error</h2>
-      <h3>Refresh or try again later</h3>
-      <div class="wiggle">
-        <img src="../assets/img/skiestWiggle.gif" alt="skiestWiggle gif">
-      </div>
+    <div v-if="mongoErr">
+      <ServerError />
     </div>
     <!-- grid-container -->
     <div v-else class="ok">
@@ -79,31 +74,25 @@
         />
       </div>
       <!-- footer -->
-      <div class="footer">
-        <span class="flower">🌻</span>
-        <div class="attributions">
-          <a href="https://www.flaticon.com/free-icons/twitch" title="twitch icons">Twitch icons created by Enamo Studios - Flaticon</a>
-          <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icons created by Freepik - Flaticon</a>
-          <a href="https://www.flaticon.com/free-icons/tiktok" title="tiktok icons">Tiktok icons created by Freepik - Flaticon</a>
-          <a href="https://www.flaticon.com/free-icons/twitter" title="twitter icons">Twitter icons created by Bogdan Rosu - Flaticon</a>
-          <a href="https://www.flaticon.com/free-icons/social-network" title="social network icons">Social network icons created by riajulislam - Flaticon</a>
-          <a href="https://www.flaticon.com/free-icons/discord" title="discord icons">Discord icons created by Hight Quality Icons - Flaticon</a>
-        </div>
-      </div>
+      <FooterBlock class="footer" />
     </div>
   </div>
 </template>
 
 <script>
 import * as Realm from 'realm-web'
-import SocialBar from '../components/SocialBar.vue'
-import CommandTable from '../components/CommandTable.vue'
+import SocialBar from '~/components/TemplateBlocks/SocialBar.vue'
+import CommandTable from '~/components/CommandTable.vue'
+import ServerError from '~/components/TemplateBlocks/ServerError.vue'
+import FooterBlock from '~/components/TemplateBlocks/FooterBlock.vue'
 
 export default {
   name: 'ShowCommands',
   components: {
     CommandTable,
-    SocialBar
+    SocialBar,
+    ServerError,
+    FooterBlock
   },
   props: {
     fool: {
@@ -180,20 +169,20 @@ export default {
       navigator.clipboard.writeText(`!${this.filterTable[index].variable}`)
       setTimeout(() => {
         this.cmdClicked = null
-      }, 2000)
+      }, 1500)
     }
   }
 }
 </script>
 
-<style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sofia+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titan+One&display=swap');
+<style scoped lang="scss">
+@import '~assets/styles/variables.scss';
 
 .sticky {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  z-index: 1;
 }
 
 .content {
@@ -213,9 +202,10 @@ export default {
 .header {
   grid-area: 1 / 2 / 2 / 3;
   height: 300px;
-  background-color: #202123;
-  border-radius: 12px;
-  border-bottom: 4px #777 solid;
+  background-color: $bg-gray;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-bottom: 4px $gray-7 solid;
 }
 
 .rocky {
@@ -252,7 +242,7 @@ export default {
 .footer {
   grid-area: 3 / 1 / 4 / 4;
   margin-bottom: 20px;
-  color: #666;
+  color: $gray-6;
   font-size: 10px;
 }
 
@@ -261,46 +251,19 @@ export default {
 }
 
 .attributions {
-  border-top: 3px solid #777;
+  border-top: 3px solid $gray-7;
   margin-top: 120px;
   padding-top: 20px;
 }
 
 .attributions a {
-  color: #777;
+  color: $gray-7;
 }
 
 .title {
     font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
     font-size: 48px;
     margin: 0;
-}
-
-.wiggle {
-    margin-left: auto;
-    margin-right: auto;
-    width: 130px;
-    border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.err {
-    margin-top: 50px;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
-    background-color: #b82727;
-    color: #FFFFFF;
-    padding: 20px;
-    text-align: center;
-    border: 5px solid transparent;
-    border-image: repeating-linear-gradient(45deg, #fff, #fff 10px, transparent 10px, transparent 30px) 20;
-}
-
-.err h2 {
-    text-transform: uppercase;
 }
 
 .search-info {
@@ -318,13 +281,13 @@ export default {
   font-size: 16px;
   border: none;
   border-radius: 20px;
-  border-bottom: 2px solid #555;
+  border-bottom: 2px solid $gray-5;
   outline: none;
   width: 200px;
 }
 
 .searchbar-input:focus {
-  border-bottom: 2px solid #666;
+  border-bottom: 2px solid $gray-6;
 }
 
 .april-fools {
@@ -336,7 +299,7 @@ export default {
   margin-top: 260px;
 }
 
-.cmd button {
+.tooltip-btn {
   font: inherit;
   display: inline;
   background-color: greenyellow;

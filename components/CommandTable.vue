@@ -1,11 +1,7 @@
 <template>
   <div class="table-content">
-    <div v-if="loading" class="wiggle-wait">
-      <h2>Fetching Data...</h2>
-      <h3>We wiggle</h3>
-      <div class="wiggle">
-        <img src="../assets/img/skiestWiggle.gif" alt="skiestWiggle gif">
-      </div>
+    <div v-if="loading">
+      <WiggleWait />
     </div>
     <div v-else class="cmd-table">
       <div v-if="!fool" class="table">
@@ -30,9 +26,7 @@
                 >
                   Copied !{{ command.variable }} to clipboard
                 </div>
-                <button @click="copyToClipboard(index)">
-                  {{ command.variable }}
-                </button>
+                <TooltipButton :button-text="command.variable" @click="isTooltipClicked()" />
               </td>
               <td class="val">
                 {{ command.value }}
@@ -70,9 +64,15 @@
 </template>
 
 <script>
+import TooltipButton from '~/components/TooltipButton.vue'
+import WiggleWait from '~/components/TemplateBlocks/WiggleWait.vue'
+
 export default {
   name: 'CommandTable',
-  components: { },
+  components: {
+    TooltipButton,
+    WiggleWait
+  },
   props: {
     commands: {
       type: Array,
@@ -90,7 +90,8 @@ export default {
   },
   data () {
     return {
-      cmdClicked: false
+      cmdClicked: null,
+      isClicked: false
     }
   },
   computed: {
@@ -100,17 +101,20 @@ export default {
   },
   methods: {
     copyToClipboard (index) {
+      this.isClicked = true
       this.cmdClicked = index
       navigator.clipboard.writeText(`!${this.commands[index].variable}`)
       setTimeout(() => {
         this.cmdClicked = null
-      }, 2000)
+        this.isClicked = false
+      }, 1250)
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import '~assets/styles/variables.scss';
 
 .table-content {
     margin-top: 20px;
@@ -126,7 +130,7 @@ export default {
 table {
     table-layout: fixed;
     box-sizing: border-box;
-    border: 2px solid rgb(121, 121, 121);
+    border: 2px solid $gray-7;
     border-radius: 8px;
     margin-left: auto;
     margin-right: auto;
@@ -146,29 +150,6 @@ th, td {
     overflow: auto;
 }
 
-.cmd button {
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
-  font: inherit;
-  outline: inherit;
-  display: inline;
-  padding: 0;
-  text-decoration: none;
-  border-bottom: dashed 1px rgb(228, 228, 228);
-}
-
-.cmd:hover {
-  text-decoration: underline;
-  text-decoration-color: rgb(255, 200, 61);
-}
-
-.cmd:active {
-  text-decoration: underline;
-  text-decoration-color: rgb(255, 164, 60);
-}
-
 .copied-msg {
   position: fixed;
   top: 30px;
@@ -176,7 +157,7 @@ th, td {
   right: auto;
   z-index: 995;
   transform: translateY(-50%);
-  background-color: rgb(255,200,61);
+  background-color: $yellow;
   color: rgb(32,33,35);
   padding: 10px;
   margin-top: 20px;
@@ -188,7 +169,7 @@ th, td {
     overflow-wrap: break-word;
     padding-right: 40px;
     padding-left: 40px;
-    border-left: 2px solid rgb(121, 121, 121);
+    border-left: 2px solid $gray-7;
     text-align: left;
 }
 
@@ -196,15 +177,7 @@ td {
     padding: 12px 0;
     text-align: center;
     vertical-align: middle;
-    border-top: 2px solid rgb(121, 121, 121);
-}
-
-.wiggle {
-    margin-left: auto;
-    margin-right: auto;
-    width: 130px;
-    border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
+    border-top: 2px solid $gray-7;
 }
 
 .april-fools {
