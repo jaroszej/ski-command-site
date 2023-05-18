@@ -17,39 +17,52 @@
           <img src="../assets/img/pickleMercy.png" alt="pickleMercy" width="210">
           <h1>April Fools Skimmands!</h1>
         </div>
-        <div class="search">
-          <div class="search-info">
-            {{ filterStatus }}
-            <div class="searchbar">
-              <input
-                v-model="filterQuery"
-                class="searchbar-input"
-                type="text"
-                placeholder="Type here..."
-              >
+        <div class="filters">
+          <div class="options">
+            <div class="alphabetical">
+              <span class="filter-label">Sort</span>
+              <FilterMenu @filter="handleFilter" />
             </div>
-            <div v-if="fool && filterQuery" class="result">
-              <table>
-                <tbody>
-                  <tr v-for="(command, index) in filterTable" :key="index">
-                    <td class="cmd">
-                      <div
-                        v-show="cmdClicked === index"
-                        class="copied-msg"
-                        :class="aprilFools"
-                      >
-                        Copied !{{ command.variable }} to clipboard
-                      </div>
-                      <button @click="copyToClipboard(index)">
-                        {{ command.variable }}
-                      </button>
-                    </td>
-                    <td class="val">
-                      {{ command.value }}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          </div>
+          <div class="search">
+            <div class="search-info">
+              <span class="status">
+                {{ filterStatus }}
+              </span>
+              <div class="searchbar">
+                <input
+                  v-model="filterQuery"
+                  class="searchbar-input"
+                  type="text"
+                  placeholder="Type here..."
+                >
+                <span class="clear">
+                  <button class="clear-btn" @click="clearFilter" />
+                </span>
+              </div>
+              <div v-if="fool && filterQuery" class="result">
+                <table>
+                  <tbody>
+                    <tr v-for="(command, index) in filterTable" :key="index">
+                      <td class="cmd">
+                        <div
+                          v-show="cmdClicked === index"
+                          class="copied-msg"
+                          :class="aprilFools"
+                        >
+                          Copied !{{ command.variable }} to clipboard
+                        </div>
+                        <button @click="copyToClipboard(index)">
+                          {{ command.variable }}
+                        </button>
+                      </td>
+                      <td class="val">
+                        {{ command.value }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -84,7 +97,8 @@ import * as Realm from 'realm-web'
 import SocialBar from '~/components/TemplateBlocks/SocialBar.vue'
 import CommandTable from '~/components/CommandTable.vue'
 import ServerError from '~/components/TemplateBlocks/ServerError.vue'
-import FooterBlock from '~/components/TemplateBlocks/FooterBlock.vue'
+import FooterBlock from '~/components/TemplateBlocks/Footer/FooterBlock.vue'
+import FilterMenu from '~/components/TemplateBlocks/FilterMenu.vue'
 
 export default {
   name: 'ShowCommands',
@@ -92,7 +106,8 @@ export default {
     CommandTable,
     SocialBar,
     ServerError,
-    FooterBlock
+    FooterBlock,
+    FilterMenu
   },
   props: {
     fool: {
@@ -107,6 +122,7 @@ export default {
       loading: true,
       commands: [],
       filterQuery: '',
+      sort: 'none',
       cmdClicked: false
     }
   },
@@ -114,8 +130,9 @@ export default {
     fixedRight () {
       return `${window.scrollY}px`
     },
+
     filterTable () {
-      return this.commands.filter((pair) => {
+      const filteredComms = this.commands.filter((pair) => {
         for (const key in pair) {
           const value = pair[key].toString().toLowerCase()
           const query = this.filterQuery.toLowerCase()
@@ -125,14 +142,18 @@ export default {
         }
         return false
       })
+      console.log('filtered commands', filteredComms)
+      return filteredComms
     },
+
     filterStatus () {
       if (this.filterTable.length > 0) {
         return 'Filter for commands or values'
       } else {
-        return '💔 No Match Found'
+        return this.loading ? 'Filter for commands or values' : '💔 No Match Found'
       }
     },
+
     aprilFools () {
       return this.fool
     }
@@ -164,12 +185,22 @@ export default {
       })
       this.loading = false
     },
+
     copyToClipboard (index) {
       this.cmdClicked = index
       navigator.clipboard.writeText(`!${this.filterTable[index].variable}`)
       setTimeout(() => {
         this.cmdClicked = null
       }, 1500)
+    },
+
+    handleFilter (filterOption) {
+      console.log('sort: ', filterOption)
+      this.sort = filterOption
+    },
+
+    clearFilter () {
+      this.filterQuery = ''
     }
   }
 }
@@ -217,7 +248,7 @@ export default {
 }
 
 .sidebar {
-  min-height: 800px;
+  min-height: 720px;
   padding: 0 10px 0;
 }
 
@@ -246,34 +277,36 @@ export default {
   font-size: 10px;
 }
 
-.flower {
-  font-size: 32px;
-}
-
-.attributions {
-  border-top: 3px solid $gray-7;
-  margin-top: 120px;
-  padding-top: 20px;
-}
-
-.attributions a {
-  color: $gray-7;
-}
-
 .title {
     font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
     font-size: 48px;
     margin: 0;
 }
 
+.filters {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options {
+  width: 33%;
+  margin: 12px;
+  margin: 12px 0;
+}
+
+.search {
+  width: 66%;
+}
+
 .search-info {
   margin: 12px;
+  margin: 12px 0;
 }
 
 .searchbar {
   display: flex;
   justify-content: center;
-  margin: 12px;
+  margin: 12px 0;
 }
 
 .searchbar-input {
@@ -290,19 +323,56 @@ export default {
   border-bottom: 2px solid $gray-6;
 }
 
-.april-fools {
-  border: 15px dashed gold;
-  border-top-right-radius: 40px;
+.clear {
+  margin-left: 12px;
+  height: 100%;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+.clear-btn {
+  background-image: url('~@/assets/img/delete.png');
+  // filters to #777
+  filter: invert(51%)
+    sepia(12%)
+    saturate(7%)
+    hue-rotate(322deg)
+    brightness(88%)
+    contrast(83%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 28px;
+  height: 28px;
+  margin: 0 5px 1px 1px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  // filters to $yellow
+  &:hover {
+    filter: invert(89%)
+      sepia(95%)
+      saturate(4042%)
+      hue-rotate(319deg)
+      brightness(97%)
+      contrast(107%);
+  }
+  // filters to $orange
+  &:active {
+    filter: invert(46%)
+      sepia(43%)
+      saturate(1888%)
+      hue-rotate(8deg)
+      brightness(106%)
+      contrast(91%);
+  }
 }
 
 .result {
   margin-top: 260px;
-}
-
-.tooltip-btn {
-  font: inherit;
-  display: inline;
-  background-color: greenyellow;
+  border-radius: 50%;
 }
 
 </style>

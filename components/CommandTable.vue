@@ -26,7 +26,7 @@
                 >
                   Copied !{{ command.variable }} to clipboard
                 </div>
-                <TooltipButton :button-text="command.variable" @click="isTooltipClicked()" />
+                <TooltipButton :button-text="command.variable.toString()" @click="isTooltipClicked()" />
               </td>
               <td class="val">
                 {{ command.value }}
