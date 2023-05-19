@@ -2,13 +2,13 @@
   <div class="dropdown-menu">
     <select v-model="selected">
       <option value="none">
-        Chronological
+        <span class="opt">Chronological</span>
       </option>
       <option value="alpha">
-        A → Z
+        <span class="opt">A → Z</span>
       </option>
       <option value="reverseAlpha">
-        Z → A
+        <span class="opt">Z → A</span>
       </option>
     </select>
   </div>
@@ -41,7 +41,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import '~assets/styles/variables.scss';
+
 .dropdown-menu {
   margin-top: 12px;
+  position: relative;
+  display: inline-block;
+
+  select {
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 2px solid $gray-5;
+    background-color: #fff;
+    color: $gray-7;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
 }
+
 </style>

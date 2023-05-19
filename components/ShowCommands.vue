@@ -19,10 +19,8 @@
         </div>
         <div class="filters">
           <div class="options">
-            <div class="alphabetical">
-              <span class="filter-label">Sort</span>
-              <FilterMenu @filter="handleFilter" />
-            </div>
+            <span class="filter-label">Sort</span>
+            <FilterMenu @filter="handleFilter" @change="refreshTable" />
           </div>
           <div class="search">
             <div class="search-info">
@@ -142,7 +140,21 @@ export default {
         }
         return false
       })
-      console.log('filtered commands', filteredComms)
+
+      if (this.sort === 'alpha') {
+        filteredComms.sort((a, b) => {
+          const varA = Object.values(a).find(value => typeof value === 'string').toLowerCase()
+          const varB = Object.values(b).find(value => typeof value === 'string').toLowerCase()
+          return varA.localeCompare(varB)
+        })
+      } else if (this.sort === 'reverseAlpha') {
+        filteredComms.sort((a, b) => {
+          const varA = Object.values(a).find(value => typeof value === 'string').toLowerCase()
+          const varB = Object.values(b).find(value => typeof value === 'string').toLowerCase()
+          return varB.localeCompare(varA)
+        })
+      }
+
       return filteredComms
     },
 
@@ -195,8 +207,11 @@ export default {
     },
 
     handleFilter (filterOption) {
-      console.log('sort: ', filterOption)
       this.sort = filterOption
+    },
+
+    refreshTable () {
+      this.sort = this.selected
     },
 
     clearFilter () {
@@ -256,6 +271,7 @@ export default {
   position: fixed;
   top: 33%;
   right: 0;
+  z-index: 155;
 }
 
 .site-nav {
@@ -289,17 +305,17 @@ export default {
 }
 
 .options {
-  width: 33%;
-  margin: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 45%;
   margin: 12px 0;
 }
 
 .search {
-  width: 66%;
+  width: 55%;
 }
 
 .search-info {
-  margin: 12px;
   margin: 12px 0;
 }
 
@@ -313,7 +329,7 @@ export default {
   padding: 12px;
   font-size: 16px;
   border: none;
-  border-radius: 20px;
+  border-radius: 10px;
   border-bottom: 2px solid $gray-5;
   outline: none;
   width: 200px;
