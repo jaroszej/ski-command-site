@@ -259,12 +259,21 @@ export default {
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
-    width:120px;
+    width: 120px;
+
+    @media screen and (max-width: $mobile) {
+      width: 48px;
+    }
 }
 
 .sidebar {
   min-height: 720px;
   padding: 0 10px 0;
+
+  @media screen and (max-width: $mobile) {
+    min-height: 540px;
+    padding: 0;
+  }
 }
 
 .fixed {
@@ -297,11 +306,21 @@ export default {
     font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
     font-size: 48px;
     margin: 0;
+    @media screen and (max-width: $mobile) {
+      font-size:24px;
+    }
 }
 
 .filters {
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: $mobile) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 200px
+  }
 }
 
 .options {
@@ -309,14 +328,29 @@ export default {
   flex-direction: column;
   width: 45%;
   margin: 12px 0;
+
+  @media screen and (max-width: $mobile) {
+    width: 100%;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+  }
 }
 
 .search {
   width: 55%;
+
+  @media screen and (max-width: $mobile) {
+    width: 100%;
+    margin-bottom: 12px;
+  }
 }
 
 .search-info {
   margin: 12px 0;
+
+  @media screen and (max-width: $mobile) {
+    margin: 4px 0;
+  }
 }
 
 .searchbar {

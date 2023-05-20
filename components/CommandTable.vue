@@ -121,6 +121,11 @@ export default {
     text-align: center;
     font-size: 1.8rem;
     letter-spacing: 0.05rem;
+
+    @media screen and (max-width: $mobile) {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
 }
 
 .cmd-table {
@@ -148,6 +153,14 @@ th, td {
 .cmd {
     width: 200px;
     overflow: auto;
+
+    @media screen and (max-width: $tablet) {
+      width: 160px;
+    }
+
+    @media screen and (max-width: $mobile) {
+      width: 112px;
+    }
 }
 
 .copied-msg {
@@ -171,6 +184,16 @@ th, td {
     padding-left: 40px;
     border-left: 2px solid $gray-7;
     text-align: left;
+
+    @media screen and (max-width: $tablet) {
+      width: 360px;
+    }
+
+    @media screen and (max-width: $mobile) {
+      width: 112px;
+      padding-left: 16px;
+      line-height: 16px;
+    }
 }
 
 td {
