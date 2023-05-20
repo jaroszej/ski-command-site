@@ -58,6 +58,10 @@ export default {
     outline: none;
     transition: border-color 0.3s ease;
   }
+
+  @media screen and (max-width: $mobile) {
+    margin-top: 4px;
+  }
 }
 
 </style>
