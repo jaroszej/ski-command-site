@@ -67,6 +67,11 @@ export default {
     padding: 0;
     text-decoration: none;
     border-bottom: dashed 1px $gray-9;
+
+    @media screen and (max-width: $mobile) {
+      width: calc(100% + 5px);
+      text-overflow: ellipsis;
+    }
   }
 
   .button:hover {

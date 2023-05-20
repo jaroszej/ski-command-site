@@ -43,10 +43,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import '~assets/styles/variables.scss';
+
   .social-bar {
     position: relative;
     height: 50%;
+
+    @media screen and (max-width: $mobile) {
+      display: none;
+    }
   }
 
   .links {
