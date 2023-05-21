@@ -49,10 +49,6 @@ export default {
   .social-bar {
     position: relative;
     height: 50%;
-
-    @media screen and (max-width: $mobile) {
-      display: none;
-    }
   }
 
   .links {

@@ -126,6 +126,11 @@ export default {
       font-size: 1.5rem;
       font-weight: bold;
     }
+
+    @media screen and (max-width: $laptop) and (orientation: landscape) {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
 }
 
 .cmd-table {

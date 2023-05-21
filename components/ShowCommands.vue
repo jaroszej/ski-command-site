@@ -7,7 +7,7 @@
     <div v-else class="ok">
       <!-- header -->
       <div class="header sticky">
-        <div v-if="!fool">
+        <div v-if="!fool" class="logo">
           <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool emote">
           <h1 class="title">
             Skimmands
@@ -252,6 +252,24 @@ export default {
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   border-bottom: 4px $gray-7 solid;
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    height: 120px;
+    width: 622px;
+  }
+
+  @media screen and (min-width: $tablet) and (orientation: landscape) {
+    width: 701px;
+  }
+
+}
+
+.logo {
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    width: 112px;
+    margin-left: 18px;
+  }
 }
 
 .rocky {
@@ -263,6 +281,12 @@ export default {
 
     @media screen and (max-width: $mobile) {
       width: 48px;
+    }
+
+    @media screen and (max-width: $laptop) and (orientation: landscape) {
+      display: flex;
+      width: 48px;
+      margin-left: 28px;
     }
 }
 
@@ -289,6 +313,10 @@ export default {
 
 .external-links {
   grid-area: 2 / 3 / 3 / 4;
+
+  @media screen and (max-width: $tablet) {
+    display: none;
+  }
 }
 
 .cmd-table {
@@ -303,12 +331,18 @@ export default {
 }
 
 .title {
-    font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
-    font-size: 48px;
-    margin: 0;
-    @media screen and (max-width: $mobile) {
-      font-size:24px;
-    }
+  font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
+  font-size: 48px;
+  margin: 0;
+
+  @media screen and (max-width: $mobile) {
+    font-size:24px;
+  }
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    display: flex;
+    font-size: 28px;
+  }
 }
 
 .filters {
@@ -320,6 +354,14 @@ export default {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     height: 200px
+  }
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    position: absolute;
+    top: 0;
+    margin-top: 12px;
+    margin-left: 140px;
+    width: 75%;
   }
 }
 
@@ -334,6 +376,11 @@ export default {
     text-overflow: ellipsis;
     margin-bottom: 0;
   }
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    width: 164px;
+    margin-left: 16px;
+  }
 }
 
 .search {
@@ -342,6 +389,10 @@ export default {
   @media screen and (max-width: $mobile) {
     width: 100%;
     margin-bottom: 12px;
+  }
+
+  @media screen and (max-width: $laptop) and (orientation: landscape) {
+    width: 254px;
   }
 }
 
