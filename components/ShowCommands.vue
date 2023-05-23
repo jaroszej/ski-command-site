@@ -70,7 +70,7 @@
         <span />
       </div>
       <!-- table -->
-      <div class="cmd-table">
+      <div class="comm-table">
         <CommandTable
           :commands="filterTable"
           :loading="loading"
@@ -235,6 +235,7 @@ export default {
   text-align: center;
   font-size: 1.8rem;
   letter-spacing: 0.05rem;
+  max-width: 1920px;
 }
 
 .ok {
@@ -247,47 +248,23 @@ export default {
 
 .header {
   grid-area: 1 / 2 / 2 / 3;
-  height: 300px;
+  height: 290px;
   background-color: $bg-gray;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   border-bottom: 4px $gray-7 solid;
+  margin-left: auto;
+  margin-right: auto;
 
-  @media screen and (max-width: $laptop) and (orientation: landscape) {
-    height: 120px;
-    width: 622px;
+  @media screen and (max-width: $tablet) {
+    width: 90vw;
+    min-width: 336px;
   }
 
-  @media screen and (min-width: $tablet) and (orientation: landscape) {
+  @media screen and (min-width: $tablet) {
+    height: 120px;
     width: 701px;
   }
-
-}
-
-.logo {
-
-  @media screen and (max-width: $laptop) and (orientation: landscape) {
-    width: 112px;
-    margin-left: 18px;
-  }
-}
-
-.rocky {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    width: 120px;
-
-    @media screen and (max-width: $mobile) {
-      width: 48px;
-    }
-
-    @media screen and (max-width: $laptop) and (orientation: landscape) {
-      display: flex;
-      width: 48px;
-      margin-left: 28px;
-    }
 }
 
 .sidebar {
@@ -319,7 +296,7 @@ export default {
   }
 }
 
-.cmd-table {
+.comm-table {
   grid-area: 2 / 2 / 3 / 3;
 }
 
@@ -330,39 +307,77 @@ export default {
   font-size: 10px;
 }
 
-.title {
-  font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
-  font-size: 48px;
-  margin: 0;
+.logo {
+  width: 112px;
+  margin-left: 18px;
+  padding-left: 38px;
 
-  @media screen and (max-width: $mobile) {
-    font-size:24px;
+  @media screen and (max-width: $tablet) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 92px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+  }
+}
+
+.rocky {
+  display: block;
+  margin-right: auto;
+  margin-top: 20px;
+  display: flex;
+  width: 48px;
+  margin-left: 28px;
+
+  @media screen and (max-width: $tablet) {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12px;
   }
 
   @media screen and (max-width: $laptop) and (orientation: landscape) {
     display: flex;
-    font-size: 28px;
   }
+}
+
+.title {
+  font-family: 'Sofia Sans Extra Condensed', Arial, Helvetica, sans-serif, sans-serif;
+  display: flex;
+  font-size: 28px;
+  margin: 0;
+
+  @media screen and (max-width: $tablet) {
+    font-size:24px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
 
 .filters {
   display: flex;
   justify-content: space-between;
+  position: absolute;
+  top: 0;
+  margin-top: 12px;
+  margin-left: 169px;
+  width: 71%;
 
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
-    height: 200px
+    height: 198px;
+    width: auto;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
   }
 
-  @media screen and (max-width: $laptop) and (orientation: landscape) {
-    position: absolute;
-    top: 0;
-    margin-top: 12px;
-    margin-left: 140px;
-    width: 75%;
-  }
 }
 
 .options {
@@ -371,27 +386,27 @@ export default {
   width: 45%;
   margin: 12px 0;
 
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     width: 100%;
     text-overflow: ellipsis;
     margin-bottom: 0;
   }
 
-  @media screen and (max-width: $laptop) and (orientation: landscape) {
+  @media screen and (min-width: $tablet) and (orientation: landscape) {
     width: 164px;
-    margin-left: 16px;
+    margin-left: 34px;
   }
 }
 
 .search {
   width: 55%;
 
-  @media screen and (max-width: $mobile) {
+  @media screen and (max-width: $tablet) {
     width: 100%;
     margin-bottom: 12px;
   }
 
-  @media screen and (max-width: $laptop) and (orientation: landscape) {
+  @media screen and (min-width: $tablet) and (orientation: landscape) {
     width: 254px;
   }
 }
