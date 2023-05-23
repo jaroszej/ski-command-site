@@ -185,6 +185,7 @@ th, td {
 
 .val {
     width: 340px;
+    max-width: 428px;
     overflow-wrap: break-word;
     padding-right: 40px;
     padding-left: 40px;
