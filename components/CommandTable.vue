@@ -144,9 +144,10 @@ table {
     margin-right: auto;
     max-width: 701px;
 
-    @media screen and (max-width: $tablet) {
+    @media screen and (max-width: $mobile) {
       width: 90vw;
     }
+
 }
 
 th {
