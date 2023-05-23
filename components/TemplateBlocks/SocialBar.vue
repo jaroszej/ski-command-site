@@ -49,10 +49,6 @@ export default {
   .social-bar {
     position: relative;
     height: 50%;
-
-    @media screen and (max-width: $mobile) {
-      display: none;
-    }
   }
 
   .links {
@@ -66,23 +62,40 @@ export default {
     border-bottom-left-radius: 50px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+
+    @media screen and (max-height: $mini) {
+      display: none;
+    }
   }
 
   .social-link a img {
     width: 54px;
     padding: 2px 0 2px 0;
-  }
 
-  .social-link a img:hover {
-    border-radius: 27px;
-    box-shadow: 0 0 5px 3px rgb(255,200,61);
-    background-color: rgb(255, 200, 61);
-  }
+    &:hover {
+      border-radius: 27px;
+      box-shadow: 0 0 5px 3px rgb(255,200,61);
+      background-color: rgb(255, 200, 61);
+    }
 
-  .social-link a img:active {
-    border-radius: 27px;
-    box-shadow: 0 0 5px 3px rgb(255, 164, 60);
-    background-color: rgb(255, 164, 60);
+    &:active {
+      border-radius: 27px;
+      box-shadow: 0 0 5px 3px rgb(255, 164, 60);
+      background-color: rgb(255, 164, 60);
+    }
+
+    @media screen and (max-height: $mobile) {
+      width: 42px;
+    }
+
+    @media screen and (max-width: $laptop) {
+      width: 42px;
+    }
+
+    @media screen and (max-height: $mini) {
+      display: none;
+    }
+
   }
 
   #april-fools {

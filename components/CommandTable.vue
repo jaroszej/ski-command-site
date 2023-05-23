@@ -123,8 +123,11 @@ export default {
     letter-spacing: 0.05rem;
 
     @media screen and (max-width: $mobile) {
+      font-size: 1.4rem;
+    }
+
+    @media screen and (max-width: $tablet) {
       font-size: 1.5rem;
-      font-weight: bold;
     }
 }
 
@@ -139,7 +142,12 @@ table {
     border-radius: 8px;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    max-width: 701px;
+
+    @media screen and (max-width: $mobile) {
+      width: 90vw;
+    }
+
 }
 
 th {
@@ -148,19 +156,6 @@ th {
 
 th, td {
     padding: 0.5rem;
-}
-
-.cmd {
-    width: 200px;
-    overflow: auto;
-
-    @media screen and (max-width: $tablet) {
-      width: 160px;
-    }
-
-    @media screen and (max-width: $mobile) {
-      width: 112px;
-    }
 }
 
 .copied-msg {
@@ -177,8 +172,20 @@ th, td {
   border-radius: 5px;
 }
 
+.cmd {
+    width: 200px;
+    overflow-wrap: break-word;
+
+    @media screen and (max-width: $tablet) {
+      width: 112px;
+      padding-right: 12px;
+      padding-left: 4px;
+    }
+}
+
 .val {
-    width: 400px;
+    width: 340px;
+    max-width: 427px;
     overflow-wrap: break-word;
     padding-right: 40px;
     padding-left: 40px;
@@ -186,11 +193,8 @@ th, td {
     text-align: left;
 
     @media screen and (max-width: $tablet) {
-      width: 360px;
-    }
-
-    @media screen and (max-width: $mobile) {
-      width: 112px;
+      width: 37vw;
+      min-width: 140px;
       padding-left: 16px;
       line-height: 16px;
     }
