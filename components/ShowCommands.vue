@@ -236,6 +236,8 @@ export default {
   font-size: 1.8rem;
   letter-spacing: 0.05rem;
   max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ok {
