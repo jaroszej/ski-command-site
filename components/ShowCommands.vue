@@ -263,7 +263,7 @@ export default {
 
   @media screen and (min-width: $tablet) {
     height: 120px;
-    width: 701px;
+    width: 720px;
   }
 
   @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
