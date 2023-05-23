@@ -265,6 +265,11 @@ export default {
     height: 120px;
     width: 701px;
   }
+
+  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+    height: 120px;
+    width: 701px;
+  }
 }
 
 .sidebar {
@@ -308,19 +313,25 @@ export default {
 }
 
 .logo {
-  width: 112px;
-  margin-left: 18px;
-  padding-left: 38px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 92px;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 0;
 
-  @media screen and (max-width: $tablet) {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 92px;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 0;
+  @media screen and (min-width: $tablet) {
+    width: 112px;
+    margin-left: 18px;
+    padding-left: 38px;
+  }
+
+  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+    width: 112px;
+    margin-left: 18px;
+    padding-left: 38px;
   }
 }
 
@@ -358,24 +369,34 @@ export default {
 }
 
 .filters {
-  display: flex;
-  justify-content: space-between;
-  position: absolute;
-  top: 0;
-  margin-top: 12px;
-  margin-left: 169px;
-  width: 71%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 198px;
+  width: auto;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
 
-  @media screen and (max-width: $tablet) {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 198px;
-    width: auto;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
+  @media screen and (min-width: $tablet) {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    margin-top: 12px;
+    margin-left: 169px;
+    width: 71%;
+  }
+
+  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    margin-top: 12px;
+    margin-left: 169px;
+    width: 71%;
   }
 
 }
