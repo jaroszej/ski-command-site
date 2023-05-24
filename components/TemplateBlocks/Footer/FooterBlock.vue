@@ -4,25 +4,28 @@
     <div class="attributions">
       <ul>
         <li>
-          <a href="https://www.flaticon.com/free-icons/twitch" title="twitch icons">Twitch icons created by Enamo Studios - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/twitch" title="twitch icons">Twitch icon created by Enamo Studios - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icons created by Freepik - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/instagram" title="instagram icons">Instagram icon created by Freepik - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/tiktok" title="tiktok icons">Tiktok icons created by Freepik - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/tiktok" title="tiktok icons">Tiktok icon created by Freepik - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/twitter" title="twitter icons">Twitter icons created by Bogdan Rosu - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/twitter" title="twitter icons">Twitter icon created by Bogdan Rosu - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/social-network" title="social network icons">Social network icons created by riajulislam - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/social-network" title="social network icons">Social network icon created by riajulislam - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/discord" title="discord icons">Discord icons created by Hight Quality Icons - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/discord" title="discord icons">Discord icon created by Hight Quality Icons - Flaticon</a>
         </li>
         <li>
-          <a href="https://www.flaticon.com/free-icons/delete" title="delete icons">Delete icons created by Those Icons - Flaticon</a>
+          <a href="https://www.flaticon.com/free-icons/delete" title="delete icons">Delete icon created by Those Icons - Flaticon</a>
+        </li>
+        <li>
+          <a href="https://www.flaticon.com/free-icons/arrow" title="arrow icons">Arrow icon created by SANB - Flaticon</a>
         </li>
       </ul>
     </div>

@@ -7,6 +7,11 @@
     <div v-else class="ok">
       <!-- header -->
       <div class="header sticky">
+        <div class="to-top-container">
+          <span class="to-top">
+            <button class="to-top-btn" @click="scrollToTop" />
+          </span>
+        </div>
         <div v-if="!fool" class="logo">
           <img class="rocky" src="../assets/img/rockyCool.png" alt="rockyCool emote">
           <h1 class="title">
@@ -70,7 +75,7 @@
         <span />
       </div>
       <!-- table -->
-      <div class="comm-table">
+      <div ref="topRef" class="comm-table">
         <CommandTable
           :commands="filterTable"
           :loading="loading"
@@ -216,6 +221,13 @@ export default {
 
     clearFilter () {
       this.filterQuery = ''
+    },
+
+    scrollToTop () {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
     }
   }
 }
@@ -314,6 +326,59 @@ export default {
   font-size: 10px;
 }
 
+.to-top-container {
+  background-color: $gray-9;
+  position: absolute;
+  z-index: 148;
+  top: 0;
+  width: 48px;
+  padding-top: 24px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin-left: 12px;
+
+  .to-top {
+    display: flex;
+    height: 100%;
+    border-radius: 50%;
+    padding: 4px;
+
+    @media screen and (max-width: $tablet) {
+    }
+  }
+
+  .to-top-btn {
+    background-image: url('~/assets/img/up-arrow.png');
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      border-radius: 27px;
+      box-shadow: 0 0 5px 3px rgb(255, 200, 61);
+      background-color: rgb(255, 200, 61);
+    }
+
+    &:active {
+      border-radius: 27px;
+      box-shadow: 0 0 5px 3px rgb(255, 164, 60);
+      background-color: rgb(255, 164, 60);
+    }
+  }
+}
+
 .logo {
   display: grid;
   grid-template-columns: 1fr;
@@ -323,17 +388,23 @@ export default {
   margin-left: auto;
   margin-right: auto;
   padding-left: 0;
+  position: absolute;
+  top: 0;
 
   @media screen and (min-width: $tablet) {
     width: 112px;
-    margin-left: 18px;
+    margin-left: 48px;
     padding-left: 38px;
   }
 
   @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
     width: 112px;
-    margin-left: 18px;
+    margin-left: 48px;
     padding-left: 38px;
+  }
+
+  @media screen and (max-width: $tablet) {
+    position: inherit;
   }
 }
 
@@ -387,7 +458,7 @@ export default {
     position: absolute;
     top: 0;
     margin-top: 12px;
-    margin-left: 169px;
+    margin-left: 190px;
     width: 71%;
   }
 
@@ -397,7 +468,7 @@ export default {
     position: absolute;
     top: 0;
     margin-top: 12px;
-    margin-left: 169px;
+    margin-left: 190px;
     width: 71%;
   }
 
@@ -470,7 +541,7 @@ export default {
 }
 
 .clear-btn {
-  background-image: url('~@/assets/img/delete.png');
+  background-image: url('~/assets/img/delete.png');
   // filters to #777
   filter: invert(51%)
     sepia(12%)
