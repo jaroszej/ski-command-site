@@ -280,7 +280,7 @@ export default {
     width: 720px;
   }
 
-  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+  @media screen and (max-width: $tablet) and (max-height: $pico) and (orientation: landscape) {
     height: 120px;
     width: 701px;
   }
@@ -397,7 +397,7 @@ export default {
     padding-left: 38px;
   }
 
-  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+  @media screen and (max-width: $tablet) and (max-height: $pico) and (orientation: landscape) {
     width: 112px;
     margin-left: 48px;
     padding-left: 38px;
@@ -462,7 +462,7 @@ export default {
     width: 71%;
   }
 
-  @media screen and (max-width: $tablet) and (max-height: $mobile) and (orientation: landscape) {
+  @media screen and (max-width: $tablet) and (max-height: $pico) and (orientation: landscape) {
     display: flex;
     justify-content: space-between;
     position: absolute;
