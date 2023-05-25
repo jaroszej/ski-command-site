@@ -138,7 +138,7 @@ export default {
 table {
     table-layout: fixed;
     box-sizing: border-box;
-    border: 2px solid $gray-7;
+    border: 2px solid $gray-8;
     border-radius: 8px;
     margin-left: auto;
     margin-right: auto;
@@ -189,7 +189,7 @@ th, td {
     overflow-wrap: break-word;
     padding-right: 40px;
     padding-left: 40px;
-    border-left: 2px solid $gray-7;
+    border-left: 2px solid $gray-8;
     text-align: left;
 
     @media screen and (max-width: $tablet) {
@@ -204,7 +204,7 @@ td {
     padding: 12px 0;
     text-align: center;
     vertical-align: middle;
-    border-top: 2px solid $gray-7;
+    border-top: 2px solid $gray-8;
 }
 
 .april-fools {
