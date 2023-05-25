@@ -9,7 +9,7 @@
       <div class="header sticky">
         <div class="to-top-container">
           <span class="to-top">
-            <button class="to-top-btn" @click="scrollToTop" />
+            <button class="to-top-btn" aria-label="Scroll To Top Button" @click="scrollToTop" />
           </span>
         </div>
         <div v-if="!fool" class="logo">
@@ -40,7 +40,7 @@
                   placeholder="Type here..."
                 >
                 <span class="clear">
-                  <button class="clear-btn" @click="clearFilter" />
+                  <button class="clear-btn" aria-label="Clear Query Button" @click="clearFilter" />
                 </span>
               </div>
               <div v-if="fool && filterQuery" class="result">
@@ -266,7 +266,7 @@ export default {
   background-color: $bg-gray;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  border-bottom: 4px $gray-7 solid;
+  border-bottom: 4px $gray-8 solid;
   margin-left: auto;
   margin-right: auto;
 

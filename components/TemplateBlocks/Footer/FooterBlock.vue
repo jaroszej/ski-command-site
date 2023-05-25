@@ -40,7 +40,7 @@
   }
 
   .attributions {
-    border-top: 3px solid $gray-7;
+    border-top: 3px solid $gray-8;
     margin-top: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
