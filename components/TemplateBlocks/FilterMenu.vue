@@ -2,7 +2,7 @@
   <div class="dropdown-menu">
     <select v-model="selected">
       <option value="none">
-        <span class="opt">Chronological</span>
+        <span class="opt">Default</span>
       </option>
       <option value="alpha">
         <span class="opt">A → Z</span>
