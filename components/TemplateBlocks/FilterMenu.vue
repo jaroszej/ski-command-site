@@ -54,7 +54,7 @@ export default {
     border-radius: 4px;
     border: 2px solid $gray-5;
     background-color: #fff;
-    color: $gray-7;
+    color: $gray-8;
     outline: none;
     transition: border-color 0.3s ease;
   }
